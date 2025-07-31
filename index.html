@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디지털 광고 & 마케팅 뉴스 클리핑</title>
+    <meta name="description" content="디지털 광고와 마케팅의 최신 트렌드와 입찰정보를 한눈에 확인하세요">
+    <meta name="keywords" content="디지털광고, 마케팅, 뉴스클리핑, 입찰정보, 나라장터">
+    
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="디지털 광고 & 마케팅 뉴스 클리핑">
+    <meta property="og:description" content="디지털 광고와 마케팅의 최신 트렌드를 한눈에 확인하세요">
+    <meta property="og:type" content="website">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .main-content {
+            padding: 30px;
+        }
+        
+        .search-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .search-btn {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+        
+        .category-filter {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            margin: 0 5px;
+            background: #f3f4f6;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            color: white;
+        }
+        
+        .interests-section {
+            margin-bottom: 30px;
+        }
+        
+        .interests-title {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #4338ca;
+            font-weight: 600;
+        }
+        
+        .interests-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .interest-tag {
+            background: linear-gradient(45deg, #f3f4f6, #e5e7eb);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .interest-tag:hover, .interest-tag.selected {
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+        
+        .add-interest {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .interest-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 15px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .interest-input:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+        
+        .add-btn {
+            padding: 10px 20px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .add-btn:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #f1f5f9;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .news-header {
+            padding: 20px;
+            background: linear-gradient(45deg, #f8fafc, #f1f5f9);
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .news-source {
+            color: #6366f1;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .news-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #1e293b;
+            line-height: 1.4;
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-summary {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #f1f5f9;
+        }
+        
+        .news-date {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        .read-more {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: #4338ca;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #f3f4f6;
+            border-radius: 50%;
+            border-top-color: #6366f1;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .bidding-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #10b981;
+        }
+        
+        .bidding-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .bidding-header {
+            padding: 20px;
+            background: linear-gradient(45deg, #ecfdf5, #f0fdf4);
+            border-bottom: 1px solid #d1fae5;
+        }
+        
+        .bidding-status {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #10b981;
+            color: white;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .bidding-agency {
+            color: #059669;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .bidding-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #1e293b;
+            line-height: 1.4;
+        }
+        
+        .bidding-content {
+            padding: 20px;
+        }
+        
+        .bidding-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-label {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .info-value {
+            font-size: 14px;
+            color: #1f2937;
+            font-weight: 500;
+        }
+        
+        .budget-highlight {
+            color: #dc2626;
+            font-weight: 700;
+        }
+        
+        .deadline-highlight {
+            color: #ea580c;
+            font-weight: 700;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+        
+        .footer {
+            background: #f8fafc;
+            padding: 20px;
+            text-align: center;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                min-width: auto;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📺 Digital Ad & Marketing Hub</h1>
+            <p class="subtitle">디지털 광고와 마케팅의 최신 트렌드를 한눈에 확인하세요</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="search-section">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="검색하고 싶은 뉴스 키워드를 입력하세요..." id="searchInput">
+                    <button class="search-btn" onclick="searchNews()">🔍 검색</button>
+                </div>
+            </div>
+            
+            <div class="category-filter">
+                <button class="filter-btn active" onclick="filterCategory('all')">전체</button>
+                <button class="filter-btn" onclick="filterCategory('news')">뉴스·블로그</button>
+                <button class="filter-btn" onclick="filterCategory('bidding')">입찰정보</button>
+            </div>
+            
+            <div class="interests-section">
+                <h3 class="interests-title">📌 관심 분야</h3>
+                <div class="interests-tags" id="interestsTags">
+                    <span class="interest-tag" onclick="toggleTag(this)">디지털 광고</span>
+                    <span class="interest-tag" onclick="toggleTag(this)">마케팅</span>
+                    <span class="interest-tag" onclick="toggleTag(this)">디지털 미디어</span>
+                    <span class="interest-tag" onclick="toggleTag(this)">나라장터 입찰정보</span>
+                    <span class="interest-tag" onclick="toggleTag(this)">기술</span>
+                    <span class="interest-tag" onclick="toggleTag(this)">AI</span>
+                    <span class="interest-tag" onclick="toggleTag(this)">경제</span>
+                    <span class="interest-tag" onclick="toggleTag(this)">스포츠</span>
+                    <span class="interest-tag" onclick="toggleTag(this)">건강</span>
+                    <span class="interest-tag" onclick="toggleTag(this)">문화</span>
+                </div>
+                <div class="add-interest">
+                    <input type="text" class="interest-input" placeholder="새로운 관심 분야 추가..." id="newInterest">
+                    <button class="add-btn" onclick="addInterest()">➕ 추가</button>
+                </div>
+            </div>
+            
+            <div id="newsContainer">
+                <div class="no-results">
+                    <h3>🚀 시작해보세요!</h3>
+                    <p>위의 검색창에 키워드를 입력하거나 관심 분야를 선택하여 뉴스를 검색해보세요.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p>© 2025 Digital Ad & Marketing Hub. 디지털 광고와 마케팅 정보를 쉽고 빠르게.</p>
+        </footer>
+    </div>
+
+    <script>
+        let savedNews = [];
+        let selectedInterests = [];
+        let currentCategory = 'all';
+        let allNewsData = [];
+
+        // 카테고리 필터
+        function filterCategory(category) {
+            currentCategory = category;
+            
+            // 버튼 활성화 상태 변경
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 현재 뉴스 데이터가 있으면 필터링해서 표시
+            if (allNewsData.length > 0) {
+                displayFilteredNews();
+            }
+        }
+
+        // 필터된 뉴스 표시
+        function displayFilteredNews() {
+            let filteredData = allNewsData;
+            
+            if (currentCategory === 'news') {
+                filteredData = allNewsData.filter(item => item.category === 'news');
+            } else if (currentCategory === 'bidding') {
+                filteredData = allNewsData.filter(item => item.category === 'bidding');
+            }
+            
+            displayNews(filteredData);
+        }
+
+        // 관심 분야 태그 토글
+        function toggleTag(element) {
+            element.classList.toggle('selected');
+            const interest = element.textContent;
+            
+            if (element.classList.contains('selected')) {
+                if (!selectedInterests.includes(interest)) {
+                    selectedInterests.push(interest);
+                }
+            } else {
+                selectedInterests = selectedInterests.filter(i => i !== interest);
+            }
+            
+            // 선택된 관심사가 있으면 자동으로 뉴스 검색
+            if (selectedInterests.length > 0) {
+                searchNewsByInterests();
+            }
+        }
+
+        // 새로운 관심 분야 추가
+        function addInterest() {
+            const input = document.getElementById('newInterest');
+            const interest = input.value.trim();
+            
+            if (interest && !isInterestExists(interest)) {
+                const tagsContainer = document.getElementById('interestsTags');
+                const newTag = document.createElement('span');
+                newTag.className = 'interest-tag';
+                newTag.textContent = interest;
+                newTag.onclick = function() { toggleTag(this); };
+                tagsContainer.appendChild(newTag);
+                input.value = '';
+            }
+        }
+
+        function isInterestExists(interest) {
+            const tags = document.querySelectorAll('.interest-tag');
+            return Array.from(tags).some(tag => tag.textContent === interest);
+        }
+
+        // 엔터키로 검색
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchNews();
+            }
+        });
+
+        document.getElementById('newInterest').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addInterest();
+            }
+        });
+
+        // 뉴스 검색 (검색창)
+        async function searchNews() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) return;
+            
+            await performSearch(query);
+        }
+
+        // 관심사 기반 뉴스 검색
+        async function searchNewsByInterests() {
+            if (selectedInterests.length === 0) return;
+            const query = selectedInterests.join(' OR ');
+            await performSearch(query);
+        }
+
+        // 실제 검색 수행
+        async function performSearch(query) {
+            const container = document.getElementById('newsContainer');
+            
+            // 로딩 표시
+            container.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>뉴스를 검색하고 있습니다...</p>
+                </div>
+            `;
+
+            try {
+                // 실제 뉴스 API 호출 대신 샘플 데이터 사용
+                const newsData = await generateSampleNews(query);
+                allNewsData = newsData;
+                displayFilteredNews();
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <h3>⚠️ 오류 발생</h3>
+                        <p>뉴스를 불러오는 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // 다양한 한국어 소스 샘플 데이터 생성
+        async function generateSampleNews(query) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const koreanSources = [
+                        "조선일보", "중앙일보", "동아일보", "한국경제", "매일경제", 
+                        "연합뉴스", "YTN", "KBS", "MBC", "SBS", "JTBC",
+                        "비즈니스워치", "이투데이", "헤럴드경제", "아시아경제",
+                        "블로터", "테크크런치 코리아", "디지털타임스", "전자신문",
+                        "마케팅", "애드저널", "브랜딩매거진", "코리아애드",
+                        "네이버 블로그", "티스토리", "브런치", "벨로그"
+                    ];
+
+                    const contentTypes = [
+                        "뉴스", "블로그", "리포트", "연구논문", "커뮤니티", "칼럼", "인터뷰", "분석글"
+                    ];
+
+                    const biddingSources = [
+                        "나라장터", "조달청", "서울시", "경기도", "부산시", "대구시", 
+                        "한국관광공사", "중소벤처기업부", "과학기술정보통신부", "문화체육관광부"
+                    ];
+
+                    function getRandomSource(sources) {
+                        return sources[Math.floor(Math.random() * sources.length)];
+                    }
+
+                    function getRandomType(types) {
+                        return types[Math.floor(Math.random() * types.length)];
+                    }
+
+                    function getRandomTime() {
+                        const times = ["방금 전", "30분 전", "1시간 전", "2시간 전", "3시간 전", "5시간 전", "8시간 전", "12시간 전", "1일 전", "2일 전"];
+                        return times[Math.floor(Math.random() * times.length)];
+                    }
+
+                    let allContent = [];
+
+                    // 일반 뉴스·블로그 콘텐츠 생성
+                    const newsContent = [
+                        {
+                            title: `${query} 업계 전문가가 말하는 2025년 전망`,
+                            summary: `${query} 분야의 주요 전문가들이 모여 올해 트렌드를 분석했습니다. 특히 개인화 기술과 프라이버시 강화가 핵심 키워드로 떠올랐습니다.`,
+                            source: getRandomSource(koreanSources),
+                            date: getRandomTime(),
+                            url: "#",
+                            type: getRandomType(contentTypes),
+                            category: 'news'
+                        },
+                        {
+                            title: `글로벌 ${query} 플랫폼들의 한국 시장 진출 가속화`,
+                            summary: `해외 주요 ${query} 플랫폼들이 한국 시장 공략을 본격화하고 있습니다. 로컬라이제이션과 파트너십 전략이 주목받고 있습니다.`,
+                            source: getRandomSource(koreanSources),
+                            date: getRandomTime(),
+                            url: "#",
+                            type: getRandomType(contentTypes),
+                            category: 'news'
+                        },
+                        {
+                            title: `${query} ROI 측정 새로운 방법론 제시`,
+                            summary: `기존의 측정 방식을 뛰어넘는 새로운 ROI 산출 방법이 학계에서 제시되었습니다. 실무진들 사이에서 큰 관심을 끌고 있습니다.`,
+                            source: getRandomSource(koreanSources),
+                            date: getRandomTime(),
+                            url: "#",
+                            type: getRandomType(contentTypes),
+                            category: 'news'
+                        },
+                        {
+                            title: `현직자가 털어놓는 ${query} 실무 경험담`,
+                            summary: `업계 10년차 마케터가 직접 경험한 성공과 실패 사례를 솔직하게 공유했습니다. 실무에 바로 적용 가능한 팁들이 가득합니다.`,
+                            source: getRandomSource(koreanSources),
+                            date: getRandomTime(),
+                            url: "#",
+                            type: getRandomType(contentTypes),
+                            category: 'news'
+                        },
+                        {
+                            title: `${query} 관련 법규 개정안 발표`,
+                            summary: `개인정보보호법과 온라인 광고 규제 관련 새로운 가이드라인이 발표되었습니다. 업계에서는 대응 방안 마련에 분주한 모습입니다.`,
+                            source: getRandomSource(koreanSources),
+                            date: getRandomTime(),
+                            url: "#",
+                            type: getRandomType(contentTypes),
+                            category: 'news'
+                        },
+                        {
+                            title: `Z세대를 겨냥한 ${query} 전략의 성공 사례`,
+                            summary: `틱톡과 인스타그램을 활용한 브랜드 캠페인이 Z세대들 사이에서 바이럴을 일으키며 큰 성과를 거두었습니다.`,
+                            source: getRandomSource(koreanSources),
+                            date: getRandomTime(),
+                            url: "#",
+                            type: getRandomType(contentTypes),
+                            category: 'news'
+                        },
+                        {
+                            title: `${query} 예산 배분 최적화 방안 연구 결과`,
+                            summary: `대학 연구팀이 AI를 활용한 광고 예산 최적 배분 알고리즘을 개발했습니다. 기존 대비 30% 효율성 향상을 확인했다고 발표했습니다.`,
+                            source: getRandomSource(koreanSources),
+                            date: getRandomTime(),
+                            url: "#",
+                            type: getRandomType(contentTypes),
+                            category: 'news'
+                        },
+                        {
+                            title: `${query} 스타트업 투자 유치 소식`,
+                            summary: `국내 ${query} 스타트업이 시리즈 A 라운드에서 100억원 규모의 투자를 유치했습니다. 해외 진출 계획도 공개했습니다.`,
+                            source: getRandomSource(koreanSources),
+                            date: getRandomTime(),
+                            url: "#",
+                            type: getRandomType(contentTypes),
+                            category: 'news'
+                        }
+                    ];
+                    allContent = allContent.concat(newsContent);
+
+                    // 입찰정보 콘텐츠 생성
+                    const biddingContent = [
+                        {
+                            title: `2025년 ${query} 캠페인 대행 업체 선정`,
+                            agency: getRandomSource(biddingSources),
+                            budget: "5억 2,000만원",
+                            deadline: "2025-08-15",
+                            method: "일반경쟁입찰",
+                            status: "진행중",
+                            summary: `${query} 관련 종합 마케팅 대행 서비스 업체를 선정합니다. 전략 수립부터 집행, 성과 분석까지 포함됩니다.`,
+                            category: 'bidding',
+                            type: '입찰공고'
+                        },
+                        {
+                            title: `${query} 플랫폼 구축 및 운영 사업자 모집`,
+                            agency: getRandomSource(biddingSources),
+                            budget: "12억 8,000만원",
+                            deadline: "2025-08-20",
+                            method: "제한경쟁입찰",
+                            status: "진행중",
+                            summary: `${query} 통합 플랫폼 구축 및 3년간 운영 관리를 담당할 사업자를 모집합니다. 기술 역량과 운영 경험이 핵심 평가 요소입니다.`,
+                            category: 'bidding',
+                            type: '입찰공고'
+                        },
+                        {
+                            title: `${query} 성과 측정 도구 도입 사업`,
+                            agency: getRandomSource(biddingSources),
+                            budget: "3억 5,000만원",
+                            deadline: "2025-08-12",
+                            method: "일반경쟁입찰",
+                            status: "마감임박",
+                            summary: `${query} 캠페인의 실시간 성과 측정 및 분석이 가능한 통합 도구 도입 사업입니다. 대시보드 구축 포함.`,
+                            category: 'bidding',
+                            type: '입찰공고'
+                        },
+                        {
+                            title: `${query} 교육 콘텐츠 제작 및 배포`,
+                            agency: getRandomSource(biddingSources),
+                            budget: "2억 1,000만원",
+                            deadline: "2025-08-18",
+                            method: "일반경쟁입찰",
+                            status: "진행중",
+                            summary: `공공부문 ${query} 담당자 대상 교육 콘텐츠 제작 및 온라인 배포 플랫폼 구축 사업입니다.`,
+                            category: 'bidding',
+                            type: '입찰공고'
+                        },
+                        {
+                            title: `${query} 컨설팅 서비스 제공업체 선정`,
+                            agency: getRandomSource(biddingSources),
+                            budget: "1억 8,000만원",
+                            deadline: "2025-08-25",
+                            method: "제한경쟁입찰",
+                            status: "진행중",
+                            summary: `${query} 전략 수립 및 실행 계획 컨설팅 서비스를 제공할 업체를 선정합니다. 관련 분야 3년 이상 경력 필수.`,
+                            category: 'bidding',
+                            type: '입찰공고'
+                        }
+                    ];
+                    allContent = allContent.concat(biddingContent);
+
+                    resolve(allContent);
+                }, 1500);
+            });
+        }
